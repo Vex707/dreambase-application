@@ -1,0 +1,14 @@
+name: Verify demo logic
+on:
+  push:
+    branches: [application-prep, main]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Run dependency-free domain tests
+        run: npm test

@@ -1,0 +1,11 @@
+node_modules/
+.env
+.env.*
+!.env.example
+private/
+tmp/
+output/
+artifacts/
+.superpowers/
+*.log
+.DS_Store

@@ -1,0 +1,146 @@
+<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Technical perspective | Michael Reeves</title><link rel="stylesheet" href="styles.css"></head><body><header class="masthead"><a class="identity" href="index.html">Michael Reeves<span>Business operations & software builder</span></a><nav aria-label="Main"><a href="index.html#workbench">Demos</a><a href="walkthrough.html">Walkthrough</a><a href="case-studies.html">Case studies</a><a href="technical.html">Technical perspective</a></nav></header><main><article class="article"><p><a href="downloads/technical-perspective.pdf">Download the three-page PDF</a></p><h1>A reliability-first stack for Dreambase&#39;s agent loops</h1>
+<blockquote>
+<p><strong>Preparation note:</strong> AI-assisted research draft for Michael Reeves to review and own before submission. Based on public sources checked September 17, 2026; no private-system access or production agent experience is claimed.</p>
+</blockquote>
+<h2>Start from the architecture Dreambase already has</h2>
+<p>Dreambase documents a durable orchestrator coordinating specialist agents through bounded tool loops, with validation, recovery paths, and commit conditions. A Data Engineer produces reusable datasets; component-level DuckDB SQL runs against materialized Parquet; deterministic checks precede rendered review; and analytical lineage follows the result. Its API distinguishes MCP exploration from REST operations on known resources. <a href="https://dreambase.com/blog/building-data-analyst-loops">Engineering description</a>, <a href="https://dreambase.com/blog/introducing-data-analyst-loops">product description</a>, <a href="https://dreambase.com/docs/api-reference">API reference</a>.</p>
+<p>Those are documented properties, not proposals. My recommendation is to preserve that durable orchestrator and strengthen its contracts. A framework replacement would add migration risk without solving metric meaning, dataset grain, context isolation, schema change, or replayability.</p>
+<h2>Proposed stack and boundaries</h2>
+<p>I would put TypeScript at the orchestration and tool boundary. Each graph node should accept and return a versioned, runtime-validated object, using Zod or an equivalent JSON Schema implementation. A result such as <code>ok | failed | not_queryable | unavailable</code> makes recovery an explicit state transition. Persisted state should include tenant and submission IDs, context hashes, dataset version, budgets, tool receipts, model and prompt versions, and commit evidence. Static types aid refactoring; runtime validation protects the boundary where model output enters ordinary code.</p>
+<p>Python is useful for offline dataset construction, statistical checks, and evaluation analysis. I would not split the online loop across languages without measured need. SQL remains the analytical language, and DuckDB the execution layer over materialized snapshots, matching Dreambase&#39;s documented design. Validation and serving can query the same bytes while source variability stays on the refresh side.</p>
+<table>
+<thead>
+<tr>
+<th>Decision</th>
+<th>Proposed choice</th>
+<th>Alternative</th>
+<th>Tradeoff</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Orchestration</td>
+<td>Preserve the durable review graph</td>
+<td>Replace it with a generic agent runtime</td>
+<td>Preservation keeps replay and recovery semantics; replacement only makes sense after measured limitations</td>
+</tr>
+<tr>
+<td>Online contracts</td>
+<td>TypeScript plus runtime schemas</td>
+<td>Prompt-only JSON conventions</td>
+<td>More schema/version work, but malformed outputs fail before persistence</td>
+</tr>
+<tr>
+<td>Data execution</td>
+<td>DuckDB over versioned materialized snapshots</td>
+<td>Query every source live</td>
+<td>Snapshots are reproducible and reusable; freshness must be explicit</td>
+</tr>
+<tr>
+<td>Python</td>
+<td>Offline data and evaluation tooling when useful</td>
+<td>Python in every online node</td>
+<td>A narrower role reduces deployment and type-boundary complexity</td>
+</tr>
+<tr>
+<td>Model selection</td>
+<td>Route by task-specific evaluations</td>
+<td>One default model or public benchmark ranking</td>
+<td>More evaluation maintenance, but routing follows Dreambase&#39;s actual failure modes</td>
+</tr>
+</tbody></table>
+<h2>Treat semantics as a first-class contract</h2>
+<p>A syntactically valid query can still be wrong. Every governed metric should carry at least: <code>metric_id</code>, semantic version, human definition, numerator and denominator, declared grain, allowed dimensions, timezone, currency or unit, null policy, source lineage, dataset version, <code>as_of</code> time, and owner. A change in grain or business definition is a breaking change even if the SQL still runs.</p>
+<p>Consider a tiny sales fixture:</p>
+<table>
+<thead>
+<tr>
+<th>orders</th>
+<th align="right">amount</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>O-1</td>
+<td align="right">$100</td>
+</tr>
+<tr>
+<td>O-2</td>
+<td align="right">$50</td>
+</tr>
+</tbody></table>
+<p><code>order_lines</code> has two rows for O-1 and one for O-2. A direct join followed by <code>SUM(orders.amount)</code> returns <strong>$250</strong> because O-1 is duplicated: <code>$100 + $100 + $50</code>. The expected revenue at order grain is <strong>$150</strong>, across <strong>2 orders</strong>. The safe plan either aggregates line data to one row per order before joining or calculates revenue from an order-grain relation. A validator can detect the risk by comparing declared grain with join cardinality, then run fixture invariants: row uniqueness at the declared key, <code>$150</code> total, and <code>2</code> distinct orders.</p>
+<p>Validation should climb from cheap certainty to expensive judgment:</p>
+<ol>
+<li>Parse the tool result and enforce the typed schema.</li>
+<li>Check tenant scope, read-only SQL policy, referenced relations, output aliases, and component shape.</li>
+<li>Execute against the exact dataset snapshot with row, memory, and time limits.</li>
+<li>Test grain, null, range, reconciliation, freshness, and lineage invariants.</li>
+<li>Render the accepted result and only then ask an LLM critic about semantic fit or visual clarity.</li>
+</ol>
+<p>An LLM critic is valuable for questions code cannot fully answer, but it should never overrule a deterministic failure. The system should promise inspectable, rejectable work, not infallibility.</p>
+<h2>Context, tenancy, and change</h2>
+<p>The <a href="https://dreambase.com/careers/software-engineer-agents">role description</a> names cascading workspace, project, and query context. I would represent each layer as a typed, immutable input with provenance and precedence rules. A query-level definition can narrow a time range; it should not silently replace a workspace-level revenue definition. The assembled context gets a content hash stored with the run so an auditor can reconstruct what the agent saw.</p>
+<p>Every tool call and persisted artifact should carry <code>workspace_id</code> and <code>project_id</code>; authorization must be enforced server-side rather than inferred from prompt context. Tests should attempt cross-workspace dataset handles, stale credentials, and mixed-context replays. Freshness is similarly explicit: expose snapshot creation time, source watermark, refresh status, and timezone to both the planner and user. &quot;Latest&quot; without those fields is not a reliable analytical instruction.</p>
+<p>Schema drift should trigger classification, not improvisation. Additive nullable columns may pass after profile refresh. Removed or renamed columns, type changes, and key/cardinality changes should block affected components and identify dependents through lineage. Keep the last known-good artifact available with a visible stale state while the graph repairs or requests help.</p>
+<h2>Failure handling and release evidence</h2>
+<p>Give every node a deadline, attempt budget, and idempotency key derived from tenant, submission, operation, and payload hash. Retry transient failures with bounded backoff and jitter; do not retry invalid SQL unchanged. Refreshes can have external effects, so ambiguous outcomes require reconciliation before another write. An internal key cannot make a non-idempotent upstream API safe: without provider support or a verifiable receipt, stop for review. Exhausted budgets should end in <code>unavailable</code>. <a href="https://dreambase.com/docs/api-reference">Refresh semantics</a>.</p>
+<p>Model routing should be earned per task. Pin model, prompt, tools, and context-builder versions; evaluate planner, SQL author, semantic reviewer, and visual critic separately; and promote a routing change only when it clears the relevant suite. Cost and latency are constraints, while task accuracy and safe failure behavior are release gates. Shadow evaluation on saved, redacted traces can compare providers without silently changing production behavior.</p>
+<p>The following matrix is illustrative; it contains proposed cases and gates, not measured results:</p>
+<table>
+<thead>
+<tr>
+<th>Task slice</th>
+<th>Fixture</th>
+<th>Deterministic gate</th>
+<th>Review signal</th>
+<th>Proposed release gate</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Dataset planning</td>
+<td>One-to-many sales join</td>
+<td>Declared grain remains unique; totals reconcile</td>
+<td>Plan covers stated intent</td>
+<td>No critical invariant regression</td>
+</tr>
+<tr>
+<td>SQL composition</td>
+<td>Renamed revenue column</td>
+<td>Binding and execution succeed or fail explicitly</td>
+<td>Explanation identifies drift</td>
+<td>100% safe handling of blocking drift cases</td>
+</tr>
+<tr>
+<td>Context assembly</td>
+<td>Conflicting timezone definitions</td>
+<td>Precedence and provenance match contract</td>
+<td>Answer states chosen timezone</td>
+<td>Zero cross-tenant or silent-precedence failures</td>
+</tr>
+<tr>
+<td>Recovery</td>
+<td>Timeout after an ambiguous refresh</td>
+<td>No duplicate side effect</td>
+<td>Recovery message is actionable</td>
+<td>Reconcile or stop; no blind mutation retries</td>
+</tr>
+<tr>
+<td>Rendering</td>
+<td>Long labels and empty series</td>
+<td>Valid geometry and bindings</td>
+<td>Critic flags unreadable output</td>
+<td>No deterministic regression; review threshold set from labeled examples</td>
+</tr>
+</tbody></table>
+<p>Release suites should include golden fixtures, adversarial joins, empty data, schema drift, stale snapshots, timezone boundaries, prompt injection in source text, timeouts, and cross-tenant references. Human labels need written rubrics and disagreement review; otherwise judge scores can measure inconsistent preferences.</p>
+<h2>A credible 30-day learning experiment</h2>
+<p>In week one, I would build a small TypeScript loop over synthetic sales data with persisted run state and a versioned DuckDB snapshot. Week two adds 25–40 focused evaluation cases. Week three compares two model routes on the same cases, reporting quality, latency, cost, and failure classes. Week four injects timeouts and ambiguous refreshes and publishes the fixtures, rubric, and limitations. Replayed outputs can test control flow when provider access is unavailable, but cannot support claims about live model quality, latency, or cost.</p>
+<p>The accompanying workbench demonstrates a smaller boundary: its synthetic auditor replay rejects unknown verdicts and invalid checklist identifiers. It does not establish image-recognition accuracy or production agent experience. The proposed experiment would extend that work into a focused learning artifact.</p>
+<h2>Public sources</h2>
+<p>First-party sources, checked September 17, 2026:</p>
+<ul>
+<li><a href="https://dreambase.com/careers/software-engineer-agents">Software Engineer, Agents</a></li>
+<li><a href="https://dreambase.com/blog/introducing-data-analyst-loops">Introducing Data Analyst Loops</a></li>
+<li><a href="https://dreambase.com/blog/building-data-analyst-loops">Building Data Analyst Loops</a> (indexed text; direct cache fetch failed)</li>
+<li><a href="https://dreambase.com/docs/api-reference">API Reference</a></li>
+</ul>
+</article></main><footer><a href="index.html">Back to the workbench</a><a href="about-this-work.html">Provenance & AI assistance</a></footer></body></html>
