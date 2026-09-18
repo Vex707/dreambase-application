@@ -2,6 +2,8 @@
 
 I come from sales and operations, and I use software and AI tools to improve practical business workflows.
 
+[Explore my portfolio](https://vex707.github.io/dreambase-application/) · [Try my SQL lab](https://vex707.github.io/dreambase-application/metric-lab.html) · [Read my technical perspective](https://vex707.github.io/dreambase-application/technical.html)
+
 My interests include data preparation, API integrations, workflow automation, and AI-assisted review. I use AI coding assistants extensively and am building the engineering skills needed to understand, test, and maintain the results.
 
 ## Selected work

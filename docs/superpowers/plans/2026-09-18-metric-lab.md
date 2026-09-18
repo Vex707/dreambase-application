@@ -20,22 +20,22 @@
 
 ### Task 1: Executable metric engine
 
-- [ ] Pin sql.js, vendor its browser assets and license, and include reproducible copy tooling.
-- [ ] Add tests in tests/metric-lab.test.mjs for $250 vs $150 join multiplication, equal $100 orders, tenant leakage, stale/invalid amounts, and an empty period. Run them before implementing runMetricCase(SQL, {scenarioId, planId}).
-- [ ] Implement site/lib/metric-lab.mjs with scenario fixtures, fixed query plans, parameter binding, independent reference calculation, and a serializable evidence receipt.
-- [ ] Add scripts/evaluate.mjs; npm run evaluate writes output/evaluations/metric-lab.json and exits nonzero for a fixture verdict mismatch.
-- [ ] Verify using npm test and npm run evaluate.
+- [x] Pin sql.js, vendor its browser assets and license, and include reproducible copy tooling.
+- [x] Add tests in tests/metric-lab.test.mjs for $250 vs $150 join multiplication, equal $100 orders, tenant leakage, stale/invalid amounts, and an empty period. Run them before implementing runMetricCase(SQL, {scenarioId, planId}).
+- [x] Implement site/lib/metric-lab.mjs with scenario fixtures, fixed query plans, parameter binding, independent reference calculation, and a serializable evidence receipt.
+- [x] Add scripts/evaluate.mjs; npm run evaluate writes output/evaluations/metric-lab.json and exits nonzero for a fixture verdict mismatch.
+- [x] Verify using npm test and npm run evaluate.
 
 ### Task 2: Reviewer interface and portfolio
 
-- [ ] Build site/metric-lab.html, metric-lab.mjs, and metric-lab.css with scenario/plan controls, visible SQL, accepted/blocked result, evidence table, input rows, and receipt download.
-- [ ] Changing input disables downloads and clears prior acceptance. Use textContent for data and readable error/loading states.
-- [ ] Link the new flagship from the portfolio, paper, and case studies; keep existing three workflows accessible.
-- [ ] Check desktop, keyboard controls, mobile width, error cases, download, and initial loading.
+- [x] Build site/metric-lab.html, metric-lab.mjs, and metric-lab.css with scenario/plan controls, visible SQL, accepted/blocked result, evidence table, input rows, and receipt download.
+- [x] Changing input disables downloads and clears prior acceptance. Use textContent for data and readable error/loading states.
+- [x] Link the new flagship from the portfolio, paper, and case studies; keep existing three workflows accessible.
+- [x] Check desktop, keyboard controls, mobile width, error cases, download, and initial loading.
 
 ### Task 3: Application evidence and Git packaging
 
-- [ ] Update the paper with executable fixture results and explicit limitations, then rebuild HTML/PDF and inspect pages.
-- [ ] Update README, CI npm ci/tests/evaluation, third-party notices, profile copy, walkthrough script/video, and email draft.
-- [ ] Run final tests and independent code review, fix findings, and commit the reviewed work.
-- [ ] If authenticated GitHub is available, publish the reviewed source and Pages, verify signed-out links, and finalize the email URLs. Otherwise leave precise account handoff and prepared publishing instructions.
+- [x] Update the paper with executable fixture results and explicit limitations, then rebuild HTML/PDF and inspect pages.
+- [x] Update README, CI npm ci/tests/evaluation, third-party notices, profile copy, walkthrough script/video, and email draft.
+- [x] Run final tests and independent code review, fix findings, and commit the reviewed work.
+- [x] If authenticated GitHub is available, publish the reviewed source and Pages, verify signed-out links, and finalize the email URLs. Otherwise leave precise account handoff and prepared publishing instructions.

@@ -1,6 +1,6 @@
 # My Dreambase application package
 
-My GitHub account is Vex707. The application repository is https://github.com/Vex707/dreambase-application. Public site deployment is in progress; the email links are filled only after verification.
+My portfolio is live at https://vex707.github.io/dreambase-application/. My application source is at https://github.com/Vex707/dreambase-application, and my profile README is published at https://github.com/Vex707. GitHub verification and Pages deployment passed. The public pages, SQL runtime, PDF, and video were checked while signed out, and the email contains their verified links.
 
 ## Review the materials
 

@@ -37,6 +37,10 @@ The added SQL lab received an independent static code review with no actionable 
 - Technical perspective PDF: four pages, every page visually inspected, including the measured synthetic results.
 - Captioned screenshot walkthrough: H.264, 1920x1080, approximately 180 seconds, no audio stream. It is assembled from actual verified browser screenshots, not a continuous interaction recording or Michael's narration.
 
+## Public publication
+
+The application repository and profile README are public under Vex707. GitHub's verification and Pages workflows completed successfully. The deployed root, SQL lab, case studies, technical page, provenance page, walkthrough, PDF, video, and WebAssembly asset return HTTP 200. Signed-out browser checks confirmed label review, homeowner filtering/export, audit rejection, and the SQL join failure on the public domain. The deployment is a static work-sample site, not a production data service.
+
 ## Not verified or completed
 
 Live property retrieval, live LLM calls, geocoding, production authorization, real print alignment, employer adoption metrics, and production agent experience are not established by these tests. Personal factual review and my own narration remain separate from technical verification. Publication status is recorded in APPLICATION-STATUS.md. No application email was sent.

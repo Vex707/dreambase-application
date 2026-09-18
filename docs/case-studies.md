@@ -16,7 +16,7 @@ These are the problems, decisions, and limitations behind my work samples. I use
 
 **Limits.** I chose SQLite for a portable static demo; the paper recommends retaining Dreambase's documented DuckDB architecture. Fixed plans make each failure inspectable but do not cover arbitrary generated SQL. Browser-side scope checks are not authorization, and a downloadable receipt is not a tamper-proof log. I would add server-side isolation, bounded execution, representative datasets, and broader evaluations before treating this as a production service.
 
-[Try my SQL lab](metric-lab.html).
+[Try my SQL lab](https://vex707.github.io/dreambase-application/metric-lab.html).
 
 ## Homeowner prospecting: the workflow after retrieval
 
