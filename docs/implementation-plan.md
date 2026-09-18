@@ -1,8 +1,8 @@
 # Dreambase Application Implementation Plan
 
 **Goal:** Prepare the user's complete, truthful application package and runnable demo evidence.
-**Architecture:** Static portfolio and offline demos; shared tested domain functions; private editable application drafts; generated PDFs and a real browser recording.
-**Tech stack:** Browser JavaScript, Node test runner and HTTP server, bundled Playwright, Python reportlab/pypdf, FFmpeg.
+**Architecture:** Static portfolio and offline demos; shared tested domain functions; private editable application drafts; generated PDFs and a captioned walkthrough assembled from verified browser screenshots.
+**Tech stack:** Browser JavaScript, Node test runner and HTTP server, Codex browser controls, Python reportlab/pypdf, FFmpeg.
 **Spec:** docs/application-design.md
 
 ## Global constraints
