@@ -2,7 +2,7 @@
 
 I come from sales and operations, where incomplete data and repetitive workflows create practical software problems. This repository contains my application portfolio: an executable SQL reliability lab, three workflow demos, case studies, and my technical perspective for Dreambase.
 
-[Live portfolio](https://vex707.github.io/dreambase-application/) · [SQL lab](https://vex707.github.io/dreambase-application/metric-lab.html) · [Technical paper](https://vex707.github.io/dreambase-application/technical.html) · [Walkthrough](https://vex707.github.io/dreambase-application/walkthrough.html)
+[Live portfolio](https://vex707.github.io/dreambase-application/) · [SQL lab](https://vex707.github.io/dreambase-application/metric-lab.html) · [Technical paper](https://vex707.github.io/dreambase-application/technical.html)
 
 I built these application editions with AI coding assistance and synthetic data. The SQL lab executes real queries. The showroom audit is explicitly a response replay, with no live model call. My [provenance notes](docs/about-this-work.md) explain which work is new and how it relates to my existing projects.
 
@@ -40,7 +40,7 @@ I created the standalone report-label demo for this application; the original la
 - [Case studies](docs/case-studies.md)
 - [Technical perspective](docs/technical-deep-dive.md)
 - [Provenance and AI assistance](docs/about-this-work.md)
-- [Walkthrough script and recording instructions](docs/walkthrough-script.md)
+- The walkthrough is currently unpublished; its recording script is retained in docs/walkthrough-script.md.
 - [Interview preparation](docs/interview-preparation.md)
 - [Publishing instructions](docs/publishing.md)
 

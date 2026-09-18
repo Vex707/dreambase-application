@@ -60,8 +60,4 @@ ffmpeg=shutil.which('ffmpeg')
 if not ffmpeg: raise RuntimeError('FFmpeg is not on PATH.')
 command=[ffmpeg,'-hide_banner','-loglevel','warning','-y','-f','concat','-safe','0','-i',str(OUT/'screens.ffconcat'),'-vf',"scale=1690:902:force_original_aspect_ratio=decrease,pad=1920:1080:(ow-iw)/2:70:color=0x172b46,setsar=1,subtitles=output/video/walkthrough.ass",'-t','180','-r','24','-c:v','libx264','-preset','fast','-crf','20','-pix_fmt','yuv420p','-movflags','+faststart',str(OUT/'Dreambase-Captioned-Walkthrough.mp4')]
 subprocess.run(command,cwd=ROOT,check=True)
-public=ROOT/'site'/'media'
-public.mkdir(exist_ok=True)
-shutil.copy2(OUT/'Dreambase-Captioned-Walkthrough.mp4',public/'walkthrough.mp4')
-shutil.copy2(shots/'portfolio.png',public/'portfolio.png')
-print('Created 180-second captioned screenshot walkthrough; no voiceover. Public copy: site/media/walkthrough.mp4')
+print('Created local-only 180-second captioned screenshot walkthrough; no voiceover. Publication is currently disabled.')
