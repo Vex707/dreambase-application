@@ -1,37 +1,41 @@
-# Four-minute walkthrough
+# My four-minute walkthrough
 
-This is a recording script for Michael, not a claim that a voice recording has already been made. The accompanying three-minute video is a captioned sequence of verified browser screenshots using synthetic data; it is not a continuous screen recording and has no voiceover. Replace any wording you cannot personally explain. Speak naturally rather than reading verbatim.
+The supplied video is a three-minute captioned sequence of verified browser screenshots, with no voiceover. This script is for my own recording. I should use wording I can explain naturally, show the actual interactions, and keep the disclosure that the data is synthetic.
 
-## 0:00-0:25 | Introduction
-Screen: portfolio introduction, then move to the demo workbench.
+## 0:00-0:25 | Why I built this
 
-“Hi, I'm Michael Reeves. My background is in sales and operations. I started building tools because I kept running into tasks where the information existed, but getting it into a useful form took too much manual work. These are small, synthetic-data demo editions prepared for this application. I use AI coding tools extensively, and I've documented where the original tools end and the application work begins.”
+Screen: portfolio, then open Metric Reliability Lab.
 
-## 0:25-1:20 | Customer report to labels
-Screen: Customer report to labels. Load sample, review records, scroll through accepted and rejected rows. Point to an incomplete address and duplicate. Change one missing field and rerun if rehearsed.
+“Hi, I'm Michael Reeves. My background is in sales and operations. I started building tools around repetitive tasks and information that was hard to turn into a useful decision. For this application, I wanted to make one idea concrete: a convincing analytical answer still needs evidence. I use AI coding assistants extensively, and I've documented that assistance and the scope of each demo.”
 
-“This example turns a customer export into a mailing workflow. The interesting part is the decision before printing: which records are complete enough to continue? Quoted CSV fields need proper parsing. An incomplete address needs a visible reason. Duplicate handling also has to preserve apartment units so we don't merge different households. These checks establish completeness; they do not prove that an address is deliverable. The original standalone customer-report tool wasn't imported, so this demo is newly prepared work.”
+## 0:25-1:30 | A valid query, the wrong answer
 
-Screen: click Print labels only during a live recording if ready to show the print dialog. Print preview can be recorded separately.
+Screen: default join scenario. Run SQL and checks; show $250 against $150, then open contributing rows and SQL. Choose Try the order-grain plan.
 
-## 1:20-2:05 | Homeowner prospecting
-Screen: switch to Homeowner prospecting, review properties, change the date window, export CSV.
+“These two paid orders total $150. The first order has two line items. If I join the order to every line and then sum its full value, I count that first order twice. The query runs, but its answer is wrong. This lab runs actual SQLite in the browser. A separate reference calculation applies the metric definition, and the checks compare the contributing records, grain, and total. The rejected result is still visible so I can explain it. Switching to the order-grain plan preserves one record per order and passes the checks.”
 
-“The next workflow begins with property records. The original application has data retrieval, review, and mailing features. The version we inspected also documents a real limitation: upstream sources can block requests. This demo uses fixtures, so you can evaluate the filtering and export without an API key. It keeps missing values visible and makes duplicates and excluded records inspectable. The demo doesn't claim that live retrieval is reliable.”
+## 1:30-2:15 | Why the obvious repair is insufficient
 
-## 2:05-3:10 | AI audit review
-Screen: switch to AI audit review. Load Valid example, validate; load Uncertain example, validate; load Invalid response, validate.
+Screen: select Two orders, the same amount. Run; show $100 versus $200. Then select Correct math, old data and run.
 
-“The original showroom audit compares a reference image with a floor photograph against a checklist. Here I'm isolating another part of that workflow: what we accept from the model. This is a synthetic response replay, not a live model call. A response needs the expected item identifiers, supported verdicts, and evidence for each item. Missing or repeated items fail validation. Uncertain findings need a person. Passing a JSON contract does not prove the model correctly understood the image. I would evaluate that separately against labeled examples.”
+“SUM DISTINCT is tempting, but it removes equal amounts, not duplicate orders. If two legitimate orders are each $100, it returns only $100. That's why I care about the meaning of a metric, not just its numeric total. Here is a different failure: the math is right, but the snapshot is too old for the freshness contract. A query change cannot repair stale source data. Each run has a downloadable evidence receipt. This is a fixed synthetic fixture, not proof that every query is correct.”
 
-## 3:10-4:00 | Connection to Dreambase
-Screen: technical perspective, worked metric example, then case-study limitations.
+## 2:15-3:10 | The business workflows behind my interest
 
-“That's the connection I see to Dreambase. A convincing explanation can still sit on top of the wrong number. My paper argues for explicit metric definitions, traceable data, bounded agent workflows, and deterministic checks before model-based critique. For example, joining an order to several line items can multiply the order total. The right test checks the meaning of the metric, not just whether the SQL runs. I'm still early in my engineering development, but this is the kind of problem I want to learn to solve well. I'd welcome the chance to discuss the work with you.”
+Screen: portfolio workflow demos. Review labels; briefly show homeowner filtering and audit Invalid response.
 
-## Recording setup
-- Open the local demo at 127.0.0.1:4173 in a clean browser. Use 1920x1080 or 1440x900, a visible cursor, and no personal tabs.
-- Rehearse once. Keep the complete video around 3-5 minutes; pauses are fine.
-- Record your actual voice. The supplied screen-only video can serve as a reference or supplementary demo; it does not replace your own explanation.
-- Show the no-model-call badge and at least one rejected response.
-- Review audio, legibility, and all claims before uploading as an unlisted video. Add its final URL to the email and portfolio.
+“My other examples come from practical workflows: preparing labels, reviewing property records, and checking showroom audit output. I made small public editions so you can inspect them without customer data or employer images. The label tool rejects incomplete records and keeps apartment units distinct. The prospecting demo separates data preparation from live retrieval, which has its own availability problems. The audit demo is a synthetic response replay; its contract checks can't prove image recognition is correct, but they can reject missing or invented checklist identifiers.”
+
+## 3:10-4:00 | What I would explore at Dreambase
+
+Screen: technical paper, measured fixture results, and source repository.
+
+“My paper recommends keeping Dreambase's documented durable orchestration and strengthening the contracts around context, metrics, execution, and acceptance. I used SQLite here for a portable work sample; I am not proposing it as a replacement for your DuckDB architecture. My next step would be a bounded loop with persisted state and representative evaluations, including failures and recovery. I'm still developing as an engineer. I would welcome a discussion of the work, the tradeoffs, and where my operational perspective could contribute.”
+
+## Recording checklist
+
+- Use a clean browser and a readable desktop resolution. Close unrelated personal tabs.
+- Rehearse the six SQL scenarios and explain why each check exists.
+- Record my actual voice. Do not present the silent screenshot video as a narrated recording.
+- Show at least one failure and one repair, then keep the total near four minutes.
+- Check audio, legibility, links, and factual claims before uploading.

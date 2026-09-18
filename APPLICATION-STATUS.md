@@ -1,24 +1,24 @@
-# Dreambase application: start here
+# My Dreambase application package
 
-The local package is prepared. Public publication and personal confirmation are still pending.
+My GitHub account is Vex707. The application repository is https://github.com/Vex707/dreambase-application. Public site deployment is in progress; the email links are filled only after verification.
 
-## Open and review
+## Review the materials
 
-- Run `npm start`, then open http://127.0.0.1:4173 for the portfolio, three interactive demos, case studies, technical paper, and captioned walkthrough.
-- `private/application-email.md`: complete prose draft with publication and LinkedIn link fields still to fill.
-- `output/pdf/Michael-Reeves-Resume.pdf`: one-page tailored resume.
-- `output/pdf/Dreambase-Technical-Perspective.pdf`: three-page technical paper.
-- `output/video/Dreambase-Captioned-Walkthrough.mp4`: three-minute captioned screenshot walkthrough without voiceover.
-- `docs/walkthrough-script.md`: four-minute script and shot list for your own recording.
+- Run `npm start` and open http://127.0.0.1:4173 for the portfolio, Metric Reliability Lab, three workflow demos, case studies, paper, and walkthrough.
+- `private/application-email.md`: email prose; `private/application-email.eml`: unsent email with attachments.
+- `output/pdf/Michael-Reeves-Resume.pdf`: tailored one-page resume.
+- `output/pdf/Dreambase-Technical-Perspective.pdf`: four-page paper with executable fixture results.
+- `output/video/Dreambase-Captioned-Walkthrough.mp4`: three-minute captioned screenshot walkthrough, without voiceover.
+- `docs/walkthrough-script.md`: my four-minute narration script and shot list.
 - `private/linkedin.md` and `github-profile/README.md`: profile copy.
-- `docs/interview-preparation.md`: explanations to rehearse before applying.
+- `docs/interview-preparation.md`: explanations to rehearse.
 
-## Still needed from Michael
+## Before sending
 
-Confirm the preferred resume details and GitHub account (`Vex707` was found in an existing repository), provide the LinkedIn profile URL, and sign into GitHub to create/publish the reviewed repository and profile. The accessible browser is signed out. Add verified portfolio/video links after publication; record your own explanation if using a narrated application video.
+Confirm my current resume titles, dates, and contact information. Review the technical recommendations and rehearse the demo explanations. The supplied video is silent; a personally narrated version can replace it. No email has been sent, and no LinkedIn profile edits have been made.
 
-The demos distinguish original project workflows from new AI-assisted preparation and use synthetic data. The source projects and private source materials remain unchanged. No email has been sent.
+My LinkedIn URL: https://www.linkedin.com/in/michael-reeves-26b3341a4/
 
-## Technical status
+## Verification
 
-18 domain tests pass. Browser flows and PDF layouts were checked; see `docs/verification.md`. Local Git is initialized on `application-prep`, using a GitHub no-reply attribution address. The repository includes a verification workflow and a manual GitHub Pages deployment workflow that uploads only `site/`. Neither has run on GitHub yet.
+29 automated tests pass. Nine fixed evaluation cases match expected outcomes (four accepted, five blocked). The SQL lab, mobile layout, generated video, and all four paper pages were checked. See docs/verification.md. Git uses my GitHub no-reply address. The Pages workflow publishes only site/; private copy and contact details stay excluded.

@@ -1,6 +1,6 @@
-<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Technical perspective | Michael Reeves</title><link rel="stylesheet" href="styles.css"></head><body><header class="masthead"><a class="identity" href="index.html">Michael Reeves<span>Business operations & software builder</span></a><nav aria-label="Main"><a href="index.html#workbench">Demos</a><a href="walkthrough.html">Walkthrough</a><a href="case-studies.html">Case studies</a><a href="technical.html">Technical perspective</a></nav></header><main><article class="article"><p><a href="downloads/technical-perspective.pdf">Download the three-page PDF</a></p><h1>A reliability-first stack for Dreambase&#39;s agent loops</h1>
+<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Technical perspective | Michael Reeves</title><link rel="stylesheet" href="styles.css"></head><body><header class="masthead"><a class="identity" href="index.html">Michael Reeves<span>Business operations & software builder</span></a><nav aria-label="Main"><a href="index.html#workbench">Demos</a><a href="walkthrough.html">Walkthrough</a><a href="case-studies.html">Case studies</a><a href="technical.html">Technical perspective</a></nav></header><main><article class="article"><p><a href="downloads/technical-perspective.pdf">Download my technical paper</a> · <a href="metric-lab.html">Try the executable SQL lab</a></p><h1>A reliability-first stack for Dreambase&#39;s agent loops</h1>
 <blockquote>
-<p><strong>Preparation note:</strong> AI-assisted research draft for Michael Reeves to review and own before submission. Based on public sources checked September 17, 2026; no private-system access or production agent experience is claimed.</p>
+<p><strong>My perspective:</strong> I prepared this proposal with AI-assisted research using public sources checked September 17, 2026. I approach it from business operations and practical tool-building. I have no access to Dreambase&#39;s internal systems or production agent-engineering experience.</p>
 </blockquote>
 <h2>Start from the architecture Dreambase already has</h2>
 <p>Dreambase documents a durable orchestrator coordinating specialist agents through bounded tool loops, with validation, recovery paths, and commit conditions. A Data Engineer produces reusable datasets; component-level DuckDB SQL runs against materialized Parquet; deterministic checks precede rendered review; and analytical lineage follows the result. Its API distinguishes MCP exploration from REST operations on known resources. <a href="https://dreambase.com/blog/building-data-analyst-loops">Engineering description</a>, <a href="https://dreambase.com/blog/introducing-data-analyst-loops">product description</a>, <a href="https://dreambase.com/docs/api-reference">API reference</a>.</p>
@@ -132,9 +132,52 @@
 </tr>
 </tbody></table>
 <p>Release suites should include golden fixtures, adversarial joins, empty data, schema drift, stale snapshots, timezone boundaries, prompt injection in source text, timeouts, and cross-tenant references. Human labels need written rubrics and disagreement review; otherwise judge scores can measure inconsistent preferences.</p>
-<h2>A credible 30-day learning experiment</h2>
+<h2>What I made executable</h2>
+<p>I built a Metric Reliability Lab alongside this paper. It runs real SQLite through sql.js in the browser, with fixed query plans, bound parameters, and synthetic sales fixtures. I chose SQLite to keep the work sample portable; I am not proposing it as a replacement for Dreambase&#39;s DuckDB layer. The validator compares candidate records and totals against a separate JavaScript implementation of the metric contract. Its receipt includes the contract version, snapshot identifier, fixed evaluation clock, SQL, parameters, rows, and each acceptance check.</p>
+<p>The reproducible CLI evaluation contains nine scenario/plan combinations. The current results are:</p>
+<table>
+<thead>
+<tr>
+<th>Fixture and plan</th>
+<th>Candidate / reference</th>
+<th>Outcome</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Line join / order-grain repair</td>
+<td>$250 / $150; then $150 / $150</td>
+<td>Blocked; then accepted</td>
+</tr>
+<tr>
+<td>Equal-price orders, DISTINCT / order grain</td>
+<td>$100 / $200; then $200 / $200</td>
+<td>Blocked; then accepted</td>
+</tr>
+<tr>
+<td>Missing tenant filter / scoped plan</td>
+<td>$1,050 / $150; then $150 / $150</td>
+<td>Blocked; then accepted</td>
+</tr>
+<tr>
+<td>Correct query, 72-hour-old snapshot</td>
+<td>$150 / $150</td>
+<td>Blocked: 24-hour freshness limit</td>
+</tr>
+<tr>
+<td>Unknown paid amount</td>
+<td>$100 / unknown</td>
+<td>Blocked: NULL cannot imply zero</td>
+</tr>
+<tr>
+<td>Empty date interval</td>
+<td>$0 / $0</td>
+<td>Accepted: no eligible orders</td>
+</tr>
+</tbody></table>
+<p>Four accepted and five blocked outcomes match the fixed expectations. This is a measured fixture result, not a live-model benchmark. Both the SQL and reference calculation could share a misunderstood business definition; independent stakeholder review still matters. These cases do not prove arbitrary SQL correct, measure performance, or establish security. In particular, client-side workspace checks teach a scope invariant but cannot enforce authorization. The JSON receipt is inspectable, not signed or tamper-proof. A fixed evaluation clock makes the freshness cases reproducible without pretending the data is current.</p>
+<h2>My next learning experiment</h2>
 <p>In week one, I would build a small TypeScript loop over synthetic sales data with persisted run state and a versioned DuckDB snapshot. Week two adds 25–40 focused evaluation cases. Week three compares two model routes on the same cases, reporting quality, latency, cost, and failure classes. Week four injects timeouts and ambiguous refreshes and publishes the fixtures, rubric, and limitations. Replayed outputs can test control flow when provider access is unavailable, but cannot support claims about live model quality, latency, or cost.</p>
-<p>The accompanying workbench demonstrates a smaller boundary: its synthetic auditor replay rejects unknown verdicts and invalid checklist identifiers. It does not establish image-recognition accuracy or production agent experience. The proposed experiment would extend that work into a focused learning artifact.</p>
+<p>My workbench also includes an auditor replay that rejects unsupported verdicts and invalid checklist identifiers. The SQL lab and response validator give me concrete starting points for this experiment. Neither establishes image-recognition accuracy, production agent experience, or live-provider quality.</p>
 <h2>Public sources</h2>
 <p>First-party sources, checked September 17, 2026:</p>
 <ul>

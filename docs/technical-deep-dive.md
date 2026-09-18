@@ -1,6 +1,6 @@
 # A reliability-first stack for Dreambase's agent loops
 
-> **Preparation note:** AI-assisted research draft for Michael Reeves to review and own before submission. Based on public sources checked September 17, 2026; no private-system access or production agent experience is claimed.
+> **My perspective:** I prepared this proposal with AI-assisted research using public sources checked September 17, 2026. I approach it from business operations and practical tool-building. I have no access to Dreambase's internal systems or production agent-engineering experience.
 
 ## Start from the architecture Dreambase already has
 
@@ -71,11 +71,28 @@ The following matrix is illustrative; it contains proposed cases and gates, not 
 
 Release suites should include golden fixtures, adversarial joins, empty data, schema drift, stale snapshots, timezone boundaries, prompt injection in source text, timeouts, and cross-tenant references. Human labels need written rubrics and disagreement review; otherwise judge scores can measure inconsistent preferences.
 
-## A credible 30-day learning experiment
+## What I made executable
+
+I built a Metric Reliability Lab alongside this paper. It runs real SQLite through sql.js in the browser, with fixed query plans, bound parameters, and synthetic sales fixtures. I chose SQLite to keep the work sample portable; I am not proposing it as a replacement for Dreambase's DuckDB layer. The validator compares candidate records and totals against a separate JavaScript implementation of the metric contract. Its receipt includes the contract version, snapshot identifier, fixed evaluation clock, SQL, parameters, rows, and each acceptance check.
+
+The reproducible CLI evaluation contains nine scenario/plan combinations. The current results are:
+
+| Fixture and plan | Candidate / reference | Outcome |
+|---|---|---|
+| Line join / order-grain repair | $250 / $150; then $150 / $150 | Blocked; then accepted |
+| Equal-price orders, DISTINCT / order grain | $100 / $200; then $200 / $200 | Blocked; then accepted |
+| Missing tenant filter / scoped plan | $1,050 / $150; then $150 / $150 | Blocked; then accepted |
+| Correct query, 72-hour-old snapshot | $150 / $150 | Blocked: 24-hour freshness limit |
+| Unknown paid amount | $100 / unknown | Blocked: NULL cannot imply zero |
+| Empty date interval | $0 / $0 | Accepted: no eligible orders |
+
+Four accepted and five blocked outcomes match the fixed expectations. This is a measured fixture result, not a live-model benchmark. Both the SQL and reference calculation could share a misunderstood business definition; independent stakeholder review still matters. These cases do not prove arbitrary SQL correct, measure performance, or establish security. In particular, client-side workspace checks teach a scope invariant but cannot enforce authorization. The JSON receipt is inspectable, not signed or tamper-proof. A fixed evaluation clock makes the freshness cases reproducible without pretending the data is current.
+
+## My next learning experiment
 
 In week one, I would build a small TypeScript loop over synthetic sales data with persisted run state and a versioned DuckDB snapshot. Week two adds 25–40 focused evaluation cases. Week three compares two model routes on the same cases, reporting quality, latency, cost, and failure classes. Week four injects timeouts and ambiguous refreshes and publishes the fixtures, rubric, and limitations. Replayed outputs can test control flow when provider access is unavailable, but cannot support claims about live model quality, latency, or cost.
 
-The accompanying workbench demonstrates a smaller boundary: its synthetic auditor replay rejects unknown verdicts and invalid checklist identifiers. It does not establish image-recognition accuracy or production agent experience. The proposed experiment would extend that work into a focused learning artifact.
+My workbench also includes an auditor replay that rejects unsupported verdicts and invalid checklist identifiers. The SQL lab and response validator give me concrete starting points for this experiment. Neither establishes image-recognition accuracy, production agent experience, or live-provider quality.
 
 ## Public sources
 

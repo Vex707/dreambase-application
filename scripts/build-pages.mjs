@@ -3,7 +3,7 @@ import { createRequire } from 'node:module';
 import path from 'node:path';
 
 // This authoring helper uses the desktop's bundled markdown parser. The built
-// HTML and public demos themselves have no package or network dependencies.
+// HTML and public demos use committed assets, including the vendored SQL engine.
 const require = createRequire(import.meta.url);
 let marked;
 try { ({marked} = require('marked')); }
@@ -19,7 +19,7 @@ const documents = [
 ];
 for (const [source, target, title] of documents) {
   const md = await readFile(new URL('../'+source, import.meta.url),'utf8');
-  const download = target === 'technical.html' ? '<p><a href="downloads/technical-perspective.pdf">Download the three-page PDF</a></p>' : '';
+  const download = target === 'technical.html' ? '<p><a href="downloads/technical-perspective.pdf">Download my technical paper</a> · <a href="metric-lab.html">Try the executable SQL lab</a></p>' : '';
   const html = `<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>${title} | Michael Reeves</title><link rel="stylesheet" href="styles.css"></head><body><header class="masthead"><a class="identity" href="index.html">Michael Reeves<span>Business operations & software builder</span></a><nav aria-label="Main"><a href="index.html#workbench">Demos</a><a href="walkthrough.html">Walkthrough</a><a href="case-studies.html">Case studies</a><a href="technical.html">Technical perspective</a></nav></header><main><article class="article">${download}${marked.parse(md)}</article></main><footer><a href="index.html">Back to the workbench</a><a href="about-this-work.html">Provenance & AI assistance</a></footer></body></html>`;
   await writeFile(new URL('../site/'+target, import.meta.url),html);
   console.log(target);

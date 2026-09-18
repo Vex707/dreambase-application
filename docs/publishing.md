@@ -4,11 +4,11 @@
 
 The application folder is a Git repository on `application-prep`. Its public artifacts live in `site/`. Private application copy, resume/contact details, and generated local outputs are ignored. A proposed profile README is in `github-profile/README.md`.
 
-The existing vignette repository's remote identifies GitHub account `Vex707`. The accessible browser is currently signed out. No new remote repository, profile update, or public deployment has been created by this package yet.
+My confirmed GitHub account is `Vex707`. Publication uses the existing authenticated Git Credential Manager session without putting credentials into source files or command output. Current deployment status is recorded in APPLICATION-STATUS.md.
 
 ## Suggested repository
 
-Create `Vex707/dreambase-application` only after confirming the account and reviewing the public files. Do not initialize the remote with a README if pushing this repository. The exact authenticated account and repository URL should be verified before adding an origin.
+The application repository is `Vex707/dreambase-application`. Before a first push, verify the remote is the intended empty repository. The exact account and URL must be checked before adding an origin.
 
 ```powershell
 git status --short
@@ -24,7 +24,7 @@ Never force-push an existing repository for this task. If `origin` already exist
 
 Publish only the contents of `site/` to the chosen static host. The local preview command is not a production hosting service. A manual workflow is prepared in `.github/workflows/pages.yml`; it tests the domain logic and uploads only `site/` as the Pages artifact. After the reviewed repository is pushed, select GitHub Actions as its Pages source and run “Publish reviewed portfolio” from the repository's default branch. The prepared branch is `application-prep`; make it the default branch or merge the reviewed files into the chosen default before expecting manual workflow dispatch to appear. Links are relative so a repository subpath is supported. The workflow follows [GitHub's documented Pages actions](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages), checked September 17, 2026.
 
-After publishing, test the root page, all three demos, CSV download, document links, keyboard navigation, and mobile width while signed out. Only then insert the verified public URL in the email. Upload a narrated video separately and add its actual link; do not use a guessed URL.
+After publishing, test the root page, the SQL lab, workflow demos, CSV download, document links, keyboard navigation, and mobile width while signed out. Only then insert the verified public URL in the email. The supplied walkthrough is captioned and silent; a personally narrated version can replace it later.
 
 ## GitHub profile
 

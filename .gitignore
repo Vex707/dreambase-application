@@ -9,3 +9,4 @@ artifacts/
 .superpowers/
 *.log
 .DS_Store
+.npm-cache/

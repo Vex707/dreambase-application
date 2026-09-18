@@ -11,7 +11,8 @@
 <a class="skip" href="#workbench">Skip to demos</a>
 <header class="masthead"><a class="identity" href="index.html">Michael Reeves<span>Business operations & software builder</span></a><nav aria-label="Main"><a href="#workbench">Demos</a><a href="walkthrough.html">Walkthrough</a><a href="case-studies.html">Case studies</a><a href="technical.html">Technical perspective</a><a href="https://github.com/Vex707" target="_blank" rel="noreferrer">GitHub</a></nav></header>
 <main>
-<section class="intro"><div><h1>Useful software starts with understanding the work.</h1><p>I come from sales and operations. My interest in software grew from the repetitive tasks, inconsistent data, and unanswered questions I encountered there.</p></div><aside><p>Prepared for <strong>Dreambase</strong></p><p>Three small demonstrations of a principle I want to carry into AI-native analytics: make the evidence visible, and check what can be checked.</p><a href="about-this-work.html">How these demos were prepared</a></aside></section>
+<section class="intro"><div><h1>Useful software starts with understanding the work.</h1><p>I come from sales and operations. My interest in software grew from the repetitive tasks, inconsistent data, and unanswered questions I encountered there.</p></div><aside><p>My application to <strong>Dreambase</strong></p><p>I want to bring that operational perspective to AI-native analytics: make the evidence visible, and check what can be checked.</p><a href="about-this-work.html">How I prepared this work</a></aside></section>
+<section class="featured-lab"><div><h2>Metric Reliability Lab</h2><p>Two orders total $150. A careless join reports $250. I built an executable SQL lab to show how I would catch the mistake before accepting the answer.</p><a class="featured-link" href="metric-lab.html">Open the SQL lab</a></div><div class="featured-example"><span>A query that runs</span><strong>$250</strong><span>A result that reconciles</span><strong>$150</strong><p>Inspect the query, compare plans, and download the evidence.</p></div></section>
 <section id="workbench" aria-labelledby="workbench-title">
 <div class="workbench-heading"><h2 id="workbench-title">Explore the work</h2><span class="sample-badge">Synthetic data · runs in your browser</span></div>
 <div class="workspace">
@@ -29,14 +30,14 @@
 <p class="hint" id="labels-help">Edit the sample to try a missing ZIP or an address with an apartment number. Format checks do not verify postal deliverability.</p>
 <div class="actions"><button class="primary" id="review-labels">Review records</button><label class="compact">First label position <input id="start-slot" type="number" min="1" max="30" value="1"></label><button id="print-labels" disabled>Print labels</button></div>
 <div class="feedback" id="labels-feedback" role="status" aria-live="polite"></div><div id="labels-results"></div>
-<details class="method"><summary>What this demonstrates</summary><p>CSV parsing, explicit record validation, duplicate handling, and a 30-up print layout. This standalone label demo was built for this application; the original customer-report labeler has not been imported. The related homeowner source contains an existing label workflow. Print at 100% on Letter paper and calibrate on plain paper first.</p></details>
+<details class="method"><summary>What this demonstrates</summary><p>I built this standalone label demo for the application: CSV parsing, explicit record validation, duplicate handling, and a 30-up print layout. My original customer-report labeler is not included. Print at 100% on Letter paper and calibrate on plain paper first.</p></details>
 </section>
 <section id="view-prospects" class="view" hidden aria-labelledby="prospects-title">
 <div class="demo-heading"><div><h3 id="prospects-title">Turn property records into a reviewable list.</h3><p>Filter a small synthetic dataset before exporting eligible, distinct addresses.</p></div><span class="status-chip">Offline fixture</span></div>
 <div class="filter-row"><label>ZIP code<input id="prospect-zip" value="70817" inputmode="numeric" maxlength="5"></label><label>Sold within<select id="prospect-days"><option value="30">30 days</option><option value="90">90 days</option><option value="365">365 days</option></select></label><label>As of<input id="prospect-asof" type="date" value="2026-09-17"></label><button class="primary" id="filter-prospects">Review properties</button></div>
 <p class="hint">All properties are invented. This demo makes no RentCast, Zillow, or Redfin requests.</p>
 <div class="feedback" id="prospects-feedback" role="status" aria-live="polite"></div><div id="prospects-results"></div><div class="actions"><button id="export-prospects" disabled>Download reviewed CSV</button></div>
-<details class="method"><summary>Source project and limitations</summary><p>The inspected source app combines a JavaScript frontend with a Python endpoint and supports lead review, CSV handling, and mailing labels. Its README records source-access failures. This clean demo isolates the data-handling workflow so it is reproducible without credentials or real addresses. It does not prove that live retrieval is currently reliable.</p></details>
+<details class="method"><summary>My source project and limitations</summary><p>My source app combines a JavaScript frontend with a Python endpoint for lead review, CSV handling, and mailing labels. Its README records source-access failures. I isolated the review workflow here so it is reproducible without credentials or real addresses. This demo does not establish live retrieval reliability.</p></details>
 </section>
 <section id="view-audit" class="view" hidden aria-labelledby="audit-title">
 <div class="demo-heading"><div><h3 id="audit-title">A plausible answer still needs a contract.</h3><p>Validate a synthetic audit response and separate items that need a person to review them.</p></div><span class="status-chip amber">Replay · no model call</span></div>
@@ -47,6 +48,6 @@
 </div></div></section>
 <section class="reading"><div><h2>The thinking behind the tools</h2><p>The same questions recur: what counts as a valid record, which evidence supports a result, and when should software ask a person to decide?</p></div><a href="case-studies.html"><strong>Read the case studies</strong><span>Problems, decisions, evidence, limitations</span></a><a href="technical.html"><strong>Reliable AI-native analytics</strong><span>Recommendations and tradeoffs for Dreambase</span></a></section>
 </main>
-<footer><span>Michael Reeves · Baton Rouge, Louisiana</span><a href="about-this-work.html">Provenance & AI assistance</a></footer>
+<footer><span>Michael Reeves · Baton Rouge, Louisiana</span><a href="https://www.linkedin.com/in/michael-reeves-26b3341a4/">LinkedIn</a><a href="about-this-work.html">How I prepared this work</a></footer>
 <div id="print-area" aria-hidden="true"></div>
 </body></html>

@@ -12,16 +12,16 @@ OUT=ROOT/'output'/'video'
 OUT.mkdir(parents=True,exist_ok=True)
 shots=ROOT/'output'/'screenshots'
 scenes=[
- ('portfolio.png','Michael Reeves | Application workbench','Practical business workflows, prepared for Dreambase.','A captioned walkthrough of verified demo screens. Synthetic data; no narration.'),
- ('labels-reviewed.png','Customer report to labels','Six input records: four complete addresses, one incomplete record, one duplicate.','CSV parsing and explicit acceptance rules run locally in the browser.'),
- ('labels-decisions.png','Make rejection reasons visible','Incomplete addresses and repeated households stay out of the print sheet.','This is a new application demo; completeness does not prove deliverability.'),
- ('prospects-reviewed.png','Homeowner prospecting','Filter fictional properties by ZIP code and sale-date window.','Missing prices stay unavailable. Different apartment units remain distinct.'),
- ('audit-valid.png','AI audit review | Synthetic replay','A response must cover every checklist item with supported verdicts and evidence.','No model call occurs. Contract validity does not establish visual accuracy.'),
- ('audit-uncertain.png','Uncertainty needs a review path','One item is reported correct; two require a person to review the evidence.','Low confidence stays visible even when the response is structurally valid.'),
- ('audit-rejected.png','Reject unsupported output','Duplicate and unknown identifiers prevent response acceptance.','The invalid fixture is rejected; no result is silently promoted to trusted state.'),
- ('metric-example.png','The analytics connection','Two orders total $150. A one-to-many join can incorrectly turn that into $250.','Evaluate business meaning and data grain, not only whether a query runs.'),
- ('case-studies.png','Case studies and technical perspective','The write-up connects source evidence, decisions, demos, and limitations.','Recommendations are based on public Dreambase sources, not internal access.'),
- ('provenance.png','Clear provenance | A foundation for discussion','Existing workplace projects are separate from these new AI-assisted samples.','Use the companion script to record your own explanation before submitting.')
+ ('portfolio.png','My application to Dreambase','I build tools around practical business workflows.','Verified demo screenshots; synthetic data; no voiceover.'),
+ ('metric-blocked.png','Metric Reliability Lab | The wrong answer','Two orders total $150. A line-item join returns $250.','I run real SQL, then compare its result with an independent reference.'),
+ ('metric-accepted.png','A repair at the right grain','One row per order preserves the $150 total.','My checks inspect scope, records, grain, amounts, revenue, and freshness.'),
+ ('metric-distinct.png','Why SUM DISTINCT is not enough','Two legitimate $100 orders collapse into a single $100 amount.','I test order identity, not just whether a number looks plausible.'),
+ ('metric-stale.png','Correct math can still be unusable','The $150 total reconciles, but the snapshot is too old.','I keep freshness explicit and block answers that miss the contract.'),
+ ('labels-reviewed.png','Customer report to labels','I separate incomplete addresses and duplicate records before printing.','Format checks establish completeness, not postal deliverability.'),
+ ('prospects-reviewed.png','Homeowner prospecting','I filter fictional property records by ZIP and sale-date window.','This public example isolates review and export from live data retrieval.'),
+ ('audit-rejected.png','AI audit review | Synthetic replay','I reject unsupported identifiers and incomplete model responses.','No model call occurs. Contract validity cannot establish image accuracy.'),
+ ('case-studies.png','My case studies and technical perspective','I connect the problem, implementation decisions, evidence, and limitations.','My recommendations use public Dreambase sources, not internal access.'),
+ ('provenance.png','How I prepared this work','I use AI coding assistants and keep synthetic examples separate from workplace data.','I welcome a discussion of the work, tradeoffs, and what I want to learn next.')
 ]
 for file,*_ in scenes:
     if not (shots/file).is_file(): raise FileNotFoundError(shots/file)

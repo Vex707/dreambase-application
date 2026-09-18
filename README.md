@@ -1,29 +1,36 @@
 # Michael Reeves — Application workbench
 
-Synthetic-data demonstrations of practical business workflows, prepared for a Dreambase application. The package includes case studies, a technical perspective, tests, and a walkthrough script.
+I come from sales and operations, where incomplete data and repetitive workflows create practical software problems. This repository contains my application portfolio: an executable SQL reliability lab, three workflow demos, case studies, and my technical perspective for Dreambase.
 
-**Status:** local application preparation. The public demos are new AI-assisted work samples based on inspected project workflows. They are not production integrations. An audit replay is visibly labeled and makes no model call.
+I built these application editions with AI coding assistance and synthetic data. The SQL lab executes real queries. The showroom audit is explicitly a response replay, with no live model call. My [provenance notes](docs/about-this-work.md) explain which work is new and how it relates to my existing projects.
+
+![Metric Reliability Lab: rejecting a $250 answer against a $150 reference](site/media/metric-lab.png)
 
 ## Run
 
-Requires Node.js 20 or later. No `npm install`, API key, or database is needed.
+Requires Node.js 20 or later. No API key or database service is needed. Install the pinned SQL engine to run the tests and evaluations:
 
 ```powershell
+npm ci --ignore-scripts
 npm test
+npm run evaluate
 npm start
 ```
 
 Open http://127.0.0.1:4173. The server exposes only `site/`, not the workspace root. Stop it with Ctrl+C. The application also works on a static host that supports JavaScript modules.
 
+The browser runtime is vendored, so `npm start` alone is enough to view the site. To reproduce those assets from the lockfile, run `npm run vendor`. See [third-party notices](THIRD-PARTY-NOTICES.md).
+
 ## Demonstrations
 
 | Workflow | What runs | What is not demonstrated |
 |---|---|---|
+| Metric Reliability Lab | Real SQLite, independent reference calculation, six contract checks, downloadable evidence | Arbitrary generated SQL, live agents, production authorization or sandboxing |
 | Customer report to labels | CSV parsing, address completeness, duplicates, printable 30-up layout | Postal deliverability, arbitrary report formats, physical printer calibration |
 | Homeowner prospecting | Synthetic record filtering, date windows, deduplication, safe CSV export | Live data retrieval or provider availability |
 | AI audit review | Runtime contract validation, rejection, review routing | A model call, image recognition accuracy, production agent orchestration |
 
-The original standalone report labeler was not located. Its demo is a new reconstruction. The inspected homeowner version uses Redfin/Zillow; the inspected audit version uses Anthropic. Older resume references to RentCast/Gemini describe different versions and are not silently substituted here.
+I created the standalone report-label demo for this application; the original labeler is not included. My homeowner source version uses Redfin/Zillow, and my audit source version uses Anthropic. References to RentCast and Gemini in my older resume describe different versions of those projects.
 
 ## Read
 
@@ -48,7 +55,17 @@ The original standalone report labeler was not located. Its demo is a new recons
 
 ## Authorship and evidence
 
-AI tools assisted code, tests, research, writing, and application preparation. Michael should be able to explain his contribution and every claim before submitting. The workbench does not manufacture historical achievements or imply senior engineering experience. Existing workplace files remain unchanged, and no internal images or data were copied into this public tree.
+I use AI tools for code, tests, research, writing, and application preparation. My engineering skills are still developing; these work samples show the problems and decisions I am working through. I have not included workplace images or customer data in this repository.
+
+## Follow one result through the code
+
+1. `site/lib/metric-lab.mjs` defines a versioned contract, synthetic fixtures, and fixed SQL plans.
+2. SQLite executes a candidate query with bound parameters.
+3. A separate JavaScript reference calculation selects the expected order records.
+4. Six checks decide acceptance: workspace scope, unique order grain, exact records, known amounts, reconciled revenue, and snapshot freshness.
+5. `site/metric-lab.mjs` presents the result and exports its evidence receipt.
+
+`npm run evaluate` writes `output/evaluations/metric-lab.json`. Its nine fixed cases include both expected acceptances and expected rejections. These are reproducible synthetic results, not a model-quality or performance benchmark.
 
 ## Rebuild written pages
 
