@@ -1,7 +1,10 @@
 name: Publish reviewed portfolio
-# Deliberately manual: review the actual public artifacts before first publication.
+# Publish reviewed site changes and allow a manual redeployment.
 on:
   workflow_dispatch:
+  push:
+    branches: [application-prep, main]
+    paths: ['site/**', '.github/workflows/pages.yml']
 permissions:
   contents: read
   pages: write
