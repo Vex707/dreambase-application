@@ -8,6 +8,7 @@ My interests include data preparation, API integrations, workflow automation, an
 
 ## Selected work
 
+- **[Web Apps with Michael](https://web-apps-with-michael.vercel.app/):** my side business building websites and web apps for people and small businesses. I also offer a private AI-assisted sales workflow covering prospecting, lead qualification, outreach, demo sharing, and video-call coordination. [Read about my approach](https://vex707.github.io/dreambase-application/my-business.html).
 - **[Application workbench](https://github.com/Vex707/dreambase-application):** my portfolio, tests, case studies, and technical perspective for Dreambase. Its Metric Reliability Lab runs actual SQL and checks whether a revenue answer respects its metric contract.
 - **Homeowner prospecting:** organizing property information into a reviewable outreach and mailing workflow.
 - **Showroom auditing:** comparing a reference display, a floor photograph, and a checklist, with findings that a person can review.

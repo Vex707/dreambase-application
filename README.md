@@ -36,6 +36,7 @@ I created the standalone report-label demo for this application; the original la
 
 ## Read
 
+- [My business: Web Apps with Michael](https://vex707.github.io/dreambase-application/my-business.html)
 - [Case studies](docs/case-studies.md)
 - [Technical perspective](docs/technical-deep-dive.md)
 - [Provenance and AI assistance](docs/about-this-work.md)

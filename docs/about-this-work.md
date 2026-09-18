@@ -10,6 +10,8 @@ I also added the Metric Reliability Lab specifically for this application. It ex
 
 ## AI assistance
 
+My [Web Apps with Michael section](https://vex707.github.io/dreambase-application/my-business.html) describes my side business and private commercial sales workflow. The public business site and demo builds are available to explore. The private workflow's capabilities are described at a high level; its source code, prompts, configuration, and customer records are not part of this portfolio.
+
 I use AI coding assistants extensively. They helped with implementation, tests, research, writing, and demo preparation. My background is in business operations, and I am developing my software engineering skills. I have not operated complex agent systems in production; I welcome a discussion of how I use these tools and the decisions behind this work.
 
 ## Data and limitations
